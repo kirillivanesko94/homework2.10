@@ -1,7 +1,7 @@
 package com.example.basket.controller;
 
 import com.example.basket.exception.IdNotFoundException;
-import com.example.basket.service.BasketServiceInterface;
+import com.example.basket.service.BasketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +18,10 @@ public class BasketController {
     }
 
     @Autowired
-    private BasketServiceInterface basketServiceInterface;
+    private BasketService basketServiceInterface;
 
     @GetMapping(path = "add")
-    public String add(@RequestParam("id") Integer id) {
+    public String add(@RequestParam("id") Integer... id) {
         return basketServiceInterface.add(id);
     }
 

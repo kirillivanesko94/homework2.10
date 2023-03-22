@@ -11,22 +11,21 @@ import static com.example.basket.model.Good.GOODS;
 
 @Service
 @SessionScope
-public class BasketServiceImpl implements BasketServiceInterface {
+public class BasketServiceImpl implements BasketService {
     private final List<Integer> basket = new ArrayList<>();
 
     @Override
     public String add(Integer... id) {
-        String result = "";
+        StringBuilder sb = new StringBuilder();
         for (Integer integer : id) {
-            if (integer > GOODS.size()) {
-                throw new IdNotFoundException("Выбранного вами ID не существует.");
-            }
             if (GOODS.containsKey(integer)) {
                 basket.add(integer);
-                result = String.format("Товар под артикулом [%s] добавлен", basket.get(integer));
+                sb.append("Товар: ").append(GOODS.get(integer)).append(" добавлен. ");
+            } else {
+                throw new IdNotFoundException("Выбранного вами ID не существует.");
             }
         }
-        return result;
+        return sb.toString();
 
     }
 
